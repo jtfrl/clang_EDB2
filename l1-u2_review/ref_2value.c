@@ -4,6 +4,12 @@
 
 void trocaRVal(int* a, int* b){
 
+    int temp=*a;
+    *a=*b;
+    *b=temp;
+
+
+
 }
 
 int main(){
@@ -13,9 +19,9 @@ int main(){
     scanf("%d", &y);
 
     printf("Valores antes da troca: %d | %d \n", x,y);
-    
-    printf("Valores depois da troca: \n");
-    trocaRVal(x,y);
+    trocaRVal(&x,&y); //endereço de memória sempre deve ser indicado
+    printf("Valores depois da troca: %d | %d \n", x,y);
+ 
   
     return 0;
 
