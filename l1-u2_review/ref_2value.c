@@ -1,15 +1,11 @@
 /*q. 2 - Lista de Exerc ́ıcios - Revisão de C para EDB2 */
 #include <stdio.h>
 
-
 void trocaRVal(int* a, int* b){
 
     int temp=*a;
     *a=*b;
     *b=temp;
-
-
-
 }
 
 int main(){
