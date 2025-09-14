@@ -21,8 +21,8 @@ RandomLetter createRandomLetter() {
 // Função para inserir letra na lista
 void ins(RandomLetter* rl, char ltr) {
     No* novo_n = (No*)malloc(sizeof(No)); 
-  // uso de memória dinâmica para uso de ponteiros e
-  // tamamho não definido para ltr
+  // uso de memória dinâmica para uso de ponteiros
+  // indo para um novo 'No' criado a cada letra
     novo_n->l = ltr;
     novo_n->next = NULL;
 
@@ -37,7 +37,6 @@ void ins(RandomLetter* rl, char ltr) {
     }
 }
 
-// Função para exibir a lista
 void display(RandomLetter* rl) {
     No* temp = rl->inicio;
     while (temp != NULL) {
@@ -47,7 +46,6 @@ void display(RandomLetter* rl) {
     printf("NULL\n");
 }
 
-// Função que conta as letras repetidas
 char* countletter(RandomLetter* listPal) {
     if (listPal->inicio == NULL) {
         return strdup("FAIL");
@@ -98,7 +96,6 @@ void freeList(RandomLetter* rl) {
     rl->inicio = NULL;
 }
 
-// Função principal
 int main() {
     RandomLetter list = createRandomLetter();
     char pal[100];
