@@ -20,14 +20,18 @@ void arvv_insere(ArvVar *a, ArvVar *sa){
 
  void arvv_imprime(ArvVar *a){
     ArvVar *p;
+    //int count=0;
     
     //printf("<%c\n", a->info);
         printf("<%c", a->info);
 
     for(p=a->head; p!=NULL; p=p->prox){
         arvv_imprime(p);  // Imprime cada subárvore filha.
+        //count++; //tentativa de pular linha
     }
     printf(">");
+
+
 }
 
 
