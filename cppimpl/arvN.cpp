@@ -14,21 +14,20 @@ int main(){
 	ArvN h("h");
 	ArvN i("i");
 	ArvN j("j");
-
-
-	ins(c, d);
-	ins(b, e);
-	ins(b, c);
 	
-	ins(i, j);
-	ins(g, i);
-	ins(g, h);
+		c.ins(&d);
+		b.ins(&e);
+		b.ins(&c);
+		
+		i.ins(&j);
+		g.ins(&i);
+		g.ins(&h);
+		
+		a1.ins(&g);
+		a1.ins(&f);
+		a1.ins(&b); //usa o endereço de memória do no
 	
-	ins(a1, g);
-	ins(a1, f);
-	ins(a1, b);
-	
-	print(a1);
+	a1.printree(&a1);
 	std::cout<<std::endl;
 	
 	return 0;
