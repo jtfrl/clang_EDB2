@@ -6,16 +6,22 @@
 #include "fileLoad.h"
 
 
+//CatVector[] = {};
+
 /*
 necessário tomar o nome de cada categoria e colocar num vetor
 */
 
-
-
 /*FUNÇÕES DE ÁRVORE AQUI: ADPATAR*/
 
 /*
-No* novoNo(int v) {
+No* novoNo(const char* f, int index) {
+
+// -- F. PARA CARREGAR CATEGORIAS NUM VETOR -- //
+CatVector[] cat_No=leCSV_Cat(f, i);
+
+
+// -- ::: pendente ::: passar para o nó
     No* n = (No*) malloc(sizeof(No));
     if (!n) { perror("malloc"); exit(EXIT_FAILURE); }
     n->valor = v;

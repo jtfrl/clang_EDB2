@@ -12,7 +12,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-
 bool checkOpenFile(FILE* arqCsv){
     //bool isok=true;
 
@@ -26,7 +25,7 @@ bool checkOpenFile(FILE* arqCsv){
 
 FILE* openFile(const char *fileAdd){
     FILE* abrir=fopen(fileAdd, "r");
-    if(!checkOpenFile(abrir)) return NULL; //checa o .csv
+    if(!checkOpenFile(abrir)) return NULL; // checa o .csv
     return abrir;
 }
 
@@ -42,7 +41,7 @@ void readFile(FILE* dataCsv){
         puts("ERRO DE LEITURA");
     }
 
-    //caso n haja erro, significa que a leitura foi concluída
+    // caso n haja erro, significa que a leitura foi concluída
 }
 
 
@@ -55,9 +54,9 @@ void closeFile(FILE* f){
 /* #### DEFININDO CATEGORIAS DENTRO DO ARQ #### */
 
 typedef struct{
-    char **cat; //array de strings
+    char **cat; // array de strings
     int count;
-    int cap; //capacidade
+    int cap; // capacidade
 }CatVector;
 
 
@@ -80,9 +79,7 @@ CatVector* criaVtCat(){
     return vet;
 }
 
-/*a implementar: liberar memoria ||| extrair as cat. do csv */
-
-//adicionando categorias
+// adicionando categorias
 void addCat(CatVector* v, const char* nome_cat){
     if(v->count>=v->cap){
         v->cap*=2; // atualização de tamanho para utilizar alocação abaixo
@@ -94,24 +91,50 @@ void addCat(CatVector* v, const char* nome_cat){
     v->count++;
 }
 
+// liberar memoria
 void liberaCat(CatVector* v){
     if(!v) return;
 
-    for(int i=0; i<v->count; i++) free(v->cat[i]); //libera em cada posição
+    for(int i=0; i<v->count; i++) free(v->cat[i]); // libera em cada posição
     free(v->cat);
     free(v);
 }
 
 // LEITURA DO .CSV
-CatVector leCSV_Cat(const char* file, int indexCol){
+CatVector* leCSV_Cat(const char* file, int indexCol){
     FILE* f=openFile(file);
-    if(!file) return NULL; 
+    if(!f) return NULL; // falha na leitura
     
-    CatVector cats=criaVtCat();
+    CatVector* cats=criaVtCat();
+
+    if(!cats){
+        closeFile(f);
+        return NULL; // se não tem categorias, então NULL
+    }
+
+    char linha[1024];
+    char *token; // cada parte das strings
+
+    while(fgets(linha, sizeof(linha), f)){
+        linha[strcspn(linha, "\0")]=0; // remove quebra
+
+        int atualCol=0;
+        char *linha_ptr=linha;
+        // leitura com delimitador c/ strtok_r
+        while((token=strtok_r(linha_ptr, ";", &linha_ptr))){
+            if(atualCol==indexCol){
+                addCat(cats, token); // há um 'match': logo a categoria é adiciona ao vetor
+                break;
+            }
+            atualCol++;
+        } 
+
+    }
+     
+    closeFile(f);
+    return cats;
 
 }
-
-
 
 
 
