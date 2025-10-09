@@ -80,7 +80,43 @@ CatVector* criaVtCat(){
     return vet;
 }
 
-/*a implementar: adicionar cat. ||| liberar memoria ||| extrair as cat. do csv */
+/*a implementar: liberar memoria ||| extrair as cat. do csv */
+
+//adicionando categorias
+void addCat(CatVector* v, const char* nome_cat){
+    if(v->count>=v->cap){
+        v->cap*=2; // atualização de tamanho para utilizar alocação abaixo
+        v->cat=(char**)realloc(v->cat, sizeof(char*)*v->cap);
+    }
+    // aloca espaço para os caracteres da string + 1 (\0)
+    v->cat[v->count]=(char*)malloc(strlen(nome_cat)+1); 
+    strcpy(v->cat[v->count], nome_cat);// cada categoria é colocada no vetor
+    v->count++;
+}
+
+void liberaCat(CatVector* v){
+    if(!v) return;
+
+    for(int i=0; i<v->count; i++) free(v->cat[i]); //libera em cada posição
+    free(v->cat);
+    free(v);
+}
+
+// LEITURA DO .CSV
+CatVector leCSV_Cat(const char* file, int indexCol){
+    FILE* f=openFile(file);
+    if(!file) return NULL; 
+    
+    CatVector cats=criaVtCat();
+
+}
+
+
+
+
+
+
+
 
 
 #endif //FILE_LOAD
