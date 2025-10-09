@@ -1,12 +1,42 @@
 //Carrega apenas a árvore
-#ifndef ABBSYS
-#define ABBSYS
-
 
 #include "fileLoad.h"
 
+typedef struct No{
+    char* catExt; //categoria extraída
+    struct No *esq, *dir;
+}No;
 
-//CatVector[] = {};
+No* novoNo(const char* f, int indexCol){
+    printf("Informe o endereço do arquivo");
+
+    //verificar como pegar o endereço do arquivo e o restante
+
+
+
+    //fornecerá o char* para alimentar os nós
+    CatVector* arq=leCSV_Cat(f, indexCol);
+
+
+    //processamento da criação do nó
+
+    /*
+    
+    ADAPTAR ROTINA A SEGUIR 
+    if (!n) { perror("malloc"); exit(EXIT_FAILURE); }
+    n->valor = v;
+    n->esq = n->dir = NULL;
+    return n;
+    
+    */
+ 
+    No* n=(No*)malloc(sizeof(No));
+
+    return n;
+
+}
+
+//char*[] = 
 
 /*
 necessário tomar o nome de cada categoria e colocar num vetor
@@ -98,4 +128,3 @@ void liberarArvore(No* r) {
 */
 
 
-#endif //ABBSYS
