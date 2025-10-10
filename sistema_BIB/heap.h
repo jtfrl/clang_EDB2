@@ -40,4 +40,8 @@ void imprimirTopN(HeapMax *heap, int n);
 // Acesso ao topo (sem remover):
 Livro topoHeap(HeapMax *heap);
 
+// Processa os dados em .csv referentes a uma dada categoria
+// onde se encontram os livros de interesse: 
+void processaLivro(const char *arqCSV, int indexCol_Vendas);
+
 #endif

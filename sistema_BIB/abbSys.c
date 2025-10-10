@@ -103,37 +103,51 @@ void processarCat(const char* arqCSV, int indexColCat){
 }
 
 // arquivo em .csv que vai ser utilizado na heap
-FILE* readCatCSV_provideHeap(char* busca){
+Livro* readCatCSV_provideHeap(char* busca){
     char* fileFormat=".csv";
     char* file_provHeap=strcat(busca, fileFormat);
     FILE* abrir=fopen(file_provHeap, "r");
 
     if(!checkOpenFile(abrir)) return NULL;
 
-    return abrir;
+    // reserva de espaço para 1000 livros (livros_cat: onde há os livros na cat.)
+    Livro* livros_cat=(Livro*)malloc(sizeof(Livro) * 1000);
 
-}
-
-
-/*
-
-FILE* openFile(const char *fileAdd){
-    FILE* abrir=fopen(fileAdd, "r");
-    if(!checkOpenFile(abrir)) return NULL; // checa o .csv
-    return abrir;
-}
-
-
-void readFile(FILE* dataCsv){
-    if(!dataCsv) return;
-    int c;
-
-    while((c=fgetc(dataCsv))!=EOF) putchar(c);
-
-    if(ferror(dataCsv)){
-        puts("ERRO DE LEITURA");
+    if(livros_cat==NULL){
+        printf("Falha na alocação de memória\n");
+        fclose(abrir);
+        return NULL;
     }
-    // caso n haja erro, significa que a leitura foi concluída
-}
 
-*/
+    int index_livrosCat=0;
+    char linha[1024]; // buffer para ler linhas
+
+    while(fgets(linha, sizeof(linha), abrir)){
+        if(sscanf(linha, "%d,%99[^,],%99[^,],%d,%f,%d,%d",
+            &livros_cat[index_livrosCat].isbn,
+            livros_cat[index_livrosCat].titulo,
+            livros_cat[index_livrosCat].autor,
+            &livros_cat[index_livrosCat].ano,
+            &livros_cat[index_livrosCat].preco,
+            &livros_cat[index_livrosCat].estoque,
+            &livros_cat[index_livrosCat].vendas
+        )==7) //sete atributos passam na controle
+        {
+            index_livrosCat++;
+        }
+
+        if(index_livrosCat>=1000) break;
+    }
+
+
+    fclose(abrir);
+
+    if(index_livrosCat==0){
+        free(livros_cat);
+        return NULL;
+    }
+
+
+    return livros_cat;
+
+}

@@ -1,6 +1,7 @@
 #ifndef ABBSYS
 #define ABBSYS
 #include "fileLoad.h"
+#include "heap.h"
 
 typedef struct No{
     char* catExt; //categoria extraída
@@ -17,7 +18,7 @@ No* buscaCat(No* raiz, const char* cat){
 void liberarABB(No* raiz);
 void processarCat(const char* arqCSV, int indexColCat);
 
-FILE* readCatCSV_provideHeap(char* busca);
+Livro* readCatCSV_provideHeap(char* busca);
 
 #endif //ABBSYS
 

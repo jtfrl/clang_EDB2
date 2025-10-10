@@ -131,9 +131,6 @@ CatVector* leCSV_Cat(const char* file, int indexCol){
     return cats;
 }
 
-//A IMPLEMENTAR: FUNÇÃO PARA LER O CSV DA CATEGORIA
-
-
 
 
 
