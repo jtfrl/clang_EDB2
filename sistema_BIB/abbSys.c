@@ -1,4 +1,4 @@
-//Carrega apenas a árvore
+//Carrega apenas a árvore e provê arquivos para heap.c
 
 #include "fileLoad.h"
 #include "abbSys.h"
@@ -102,7 +102,42 @@ void processarCat(const char* arqCSV, int indexColCat){
 
 }
 
+// contagem de livros no estoque 
+int contaEstoque(char* busca){
+    LivroVet* liv=readCatCSV_provideHeap(busca);
+
+    if(!liv || liv->count==0){
+        printf("Não foram adicionados livros para a contagem\n");
+        if(liv) liberaLvet(liv);
+        return 0;
+    }
+    int cEstoque=0;
+    int index=0;
+    while(liv->count!=0){
+        cEstoque+=liv->livros[index].estoque;
+        liv->count--;
+        index++;
+    }
+
+    printf("Categoria '%s': %d' é o estoque total", busca, cEstoque);
+
+    liberaLvet(liv);
+
+    return cEstoque;
+}
+
+void liberaLvet(LivroVet* arr){
+    if(arr){
+        free(arr->livros);
+        free(arr);
+    }
+
+}
+
+
 // arquivo em .csv que vai ser utilizado na heap
+// aqui os dados do livro da categoria serão lidos
+// para ajudar no processamento em heap.c
 Livro* readCatCSV_provideHeap(char* busca){
     char* fileFormat=".csv";
     char* file_provHeap=strcat(busca, fileFormat);
@@ -139,7 +174,6 @@ Livro* readCatCSV_provideHeap(char* busca){
         if(index_livrosCat>=1000) break;
     }
 
-
     fclose(abrir);
 
     if(index_livrosCat==0){
@@ -147,6 +181,7 @@ Livro* readCatCSV_provideHeap(char* busca){
         return NULL;
     }
 
+    contaEstoque(busca);
 
     return livros_cat;
 
