@@ -7,124 +7,102 @@ typedef struct No{
     struct No *esq, *dir;
 }No;
 
-No* novoNo(const char* f, int indexCol){
-    printf("Informe o endereço do arquivo");
 
-    //verificar como pegar o endereço do arquivo e o restante
-
-
-
-    //fornecerá o char* para alimentar os nós
-    CatVector* arq=leCSV_Cat(f, indexCol);
-
-
-    //processamento da criação do nó
-
-    /*
+No* inserir(No* r, CatVector* vetorComCat) {
+    char* cat_ext=vetorComCat->cat;
     
-    ADAPTAR ROTINA A SEGUIR 
-    if (!n) { perror("malloc"); exit(EXIT_FAILURE); }
-    n->valor = v;
-    n->esq = n->dir = NULL;
-    return n;
-    
-    */
+    if (r == NULL) return novoNo(cat_ext);
+    if (cat_ext < r->catExt) r->esq = inserir(r->esq, vetorComCat);
+    else if (cat_ext > r->catExt) r->dir = inserir(r->dir, vetorComCat);
+    return r;
+}
+
+
+No* novoNo(char* catExt){
  
     No* n=(No*)malloc(sizeof(No));
-
-    return n;
-
-}
-
-//char*[] = 
-
-/*
-necessário tomar o nome de cada categoria e colocar num vetor
-*/
-
-/*FUNÇÕES DE ÁRVORE AQUI: ADPATAR*/
-
-/*
-No* novoNo(const char* f, int index) {
-
-// -- F. PARA CARREGAR CATEGORIAS NUM VETOR -- //
-CatVector[] cat_No=leCSV_Cat(f, i);
-
-
-// -- ::: pendente ::: passar para o nó
-    No* n = (No*) malloc(sizeof(No));
-    if (!n) { perror("malloc"); exit(EXIT_FAILURE); }
-    n->valor = v;
-    n->esq = n->dir = NULL;
-    return n;
-}
-
-
-No* inserir(No* r, int v) {
-    if (r == NULL) return novoNo(v);
-    if (v < r->valor)      r->esq = inserir(r->esq, v);
-    else if (v > r->valor) r->dir = inserir(r->dir, v);
-    return r;
-}
-
-
-No* buscar(No* r, int v) {
-    if (r == NULL || r->valor == v) return r;
-    return (v < r->valor) ? buscar(r->esq, v) : buscar(r->dir, v);
-}
-
-
-void emOrdem(No* r) {
-    if (r == NULL) return;
-    emOrdem(r->esq);
-    printf("%d ", r->valor);
-    emOrdem(r->dir);
-}
-
-No* maiorNo(No* r) {
-    No* atual = r;
-    while (atual && atual->dir) atual = atual->dir;
-    return atual;
-}
-
-
-No* remover(No* r, int v) {
-    if (r == NULL) return NULL;
-
-    if (v < r->valor) {
-        r->esq = remover(r->esq, v);
-    } else if (v > r->valor) {
-        r->dir = remover(r->dir, v);
-    } else {
-        if (r->esq == NULL && r->dir == NULL) {
-            free(r);
-            return NULL;
-        } else if (r->esq == NULL) {
-            No* tmp = r->dir;
-            free(r);
-            return tmp;
-        } else if (r->dir == NULL) {
-            No* tmp = r->esq;
-            free(r);
-            return tmp;
-        } else {
-            No* pred = maiorNo(r->esq);
-            r->valor = pred->valor;
-            r->esq = remover(r->esq, pred->valor);
-        }
+    if(!n){
+        perror("Erro ao alocar no");
+        return NULL;
     }
-    return r;
+
+    n->catExt=(char*)malloc(strlen(catExt)+1);
+
+    if(!n->catExt){
+        perror("Erro ao alocar dado em string da categoria");
+        free(n);
+        return NULL;
+    }
+
+    strcpy(n->catExt, catExt); //copia a informação da categoria
+    n->esq=n->dir=NULL;
+
+    return n;
+
 }
 
+No* buildABB(CatVector* vCats){
+    if(!vCats || vCats->count==0) return NULL;
 
-void liberarArvore(No* r) {
-    if (!r) return;
-    liberarArvore(r->esq);
-    liberarArvore(r->dir);
-    free(r);
+    No* raiz=NULL;
+    int lmt=vCats->count;
+
+    // como temos um vetor de strings, podemos alimentar a ABB com 
+    // o que vem da struct CatVector 
+    for(int i=0; i<lmt;i++) raiz=inserir(raiz,vCats->cat[i]);
+
+    return raiz;
 }
 
+void emOrdem(No* raiz){
+    if (raiz==NULL) return;
+    emOrdem(raiz->esq);
+    printf("%s ", raiz->catExt);
+    emOrdem(raiz->dir);
+}
 
-*/
+No* buscaCat(No* raiz, const char* cat){
+    if(raiz==NULL || raiz->catExt == cat) return raiz;
+    return(cat < raiz->catExt) ? buscaCat(raiz->esq, cat) : buscaCat(raiz->dir, cat);
+}
 
+void liberarABB(No* raiz){
+    if(raiz==NULL) return;
 
+    liberarABB(raiz->esq);
+    liberarABB(raiz->dir);
+
+    free(raiz->catExt);
+    free(raiz);
+}
+
+//já mostra as categorias em ordem e permite a busca
+void processarCat(const char* arqCSV, int indexColCat){
+    CatVector* categoria=leCSV_Cat(arqCSV, indexColCat);
+
+    if(!categoria || categoria->count==0){
+        printf("Nenhuma categoria encontrada. Insira um novo arquivo e tente novamente\n");
+        return;
+    }
+
+    printf("Carregadas %d categorias do .CSV", categoria->count);
+
+    // construindo a arvore
+
+    No* tree=buildABB(categoria);
+
+    printf("\n Categorias em ordem: ");
+    emOrdem(tree);
+
+    char busca[MAX_CAT_NAME];
+    print("Digite uma categoria para a busca\n");
+    scanf("%s", busca);
+
+    No* resultado=buscaCat(tree, busca);
+    if(resultado) printf("Categoria '%s' encontrada!", busca);
+    else printf("Não encontrada: ", busca);
+
+    libera(tree);
+    libera(categoria);
+
+}
