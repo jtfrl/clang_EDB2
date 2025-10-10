@@ -1,4 +1,6 @@
 #include "heap.h"
+#include "abbSys.h"
+#include "fileLoad.h" //utilizar readFile aqui também
 
 // Funções auxiliares:
 int pai(int i) { return (i - 1) / 2; }
@@ -119,4 +121,6 @@ void imprimirTopN(HeapMax *heap, int n) {
     }
 
     liberarHeap(temp);
+
+    //PENDENTE: colocar função para mostrar só o 1o. mais vendido
 }

@@ -1,11 +1,7 @@
 //Carrega apenas a árvore
 
 #include "fileLoad.h"
-
-typedef struct No{
-    char* catExt; //categoria extraída
-    struct No *esq, *dir;
-}No;
+#include "abbSys.h"
 
 
 No* inserir(No* r, CatVector* vetorComCat) {
@@ -76,7 +72,7 @@ void liberarABB(No* raiz){
     free(raiz);
 }
 
-//já mostra as categorias em ordem e permite a busca
+// já mostra as categorias em ordem e permite a busca
 void processarCat(const char* arqCSV, int indexColCat){
     CatVector* categoria=leCSV_Cat(arqCSV, indexColCat);
 
@@ -88,7 +84,6 @@ void processarCat(const char* arqCSV, int indexColCat){
     printf("Carregadas %d categorias do .CSV", categoria->count);
 
     // construindo a arvore
-
     No* tree=buildABB(categoria);
 
     printf("\n Categorias em ordem: ");
@@ -99,10 +94,46 @@ void processarCat(const char* arqCSV, int indexColCat){
     scanf("%s", busca);
 
     No* resultado=buscaCat(tree, busca);
-    if(resultado) printf("Categoria '%s' encontrada!", busca);
+    if(resultado) printf("Categoria '%s' encontrada: ", busca, "| processando arquivo .csv correspondente\n");
     else printf("Não encontrada: ", busca);
 
     libera(tree);
     libera(categoria);
 
 }
+
+// arquivo em .csv que vai ser utilizado na heap
+FILE* readCatCSV_provideHeap(char* busca){
+    char* fileFormat=".csv";
+    char* file_provHeap=strcat(busca, fileFormat);
+    FILE* abrir=fopen(file_provHeap, "r");
+
+    if(!checkOpenFile(abrir)) return NULL;
+
+    return abrir;
+
+}
+
+
+/*
+
+FILE* openFile(const char *fileAdd){
+    FILE* abrir=fopen(fileAdd, "r");
+    if(!checkOpenFile(abrir)) return NULL; // checa o .csv
+    return abrir;
+}
+
+
+void readFile(FILE* dataCsv){
+    if(!dataCsv) return;
+    int c;
+
+    while((c=fgetc(dataCsv))!=EOF) putchar(c);
+
+    if(ferror(dataCsv)){
+        puts("ERRO DE LEITURA");
+    }
+    // caso n haja erro, significa que a leitura foi concluída
+}
+
+*/

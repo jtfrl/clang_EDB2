@@ -14,7 +14,6 @@
 
 bool checkOpenFile(FILE* arqCsv){
     //bool isok=true;
-
     if(!arqCsv){
         perror("Abertura do arquivo falhou");
         return false;
@@ -32,7 +31,6 @@ FILE* openFile(const char *fileAdd){
 
 void readFile(FILE* dataCsv){
     if(!dataCsv) return;
-
     int c;
 
     while((c=fgetc(dataCsv))!=EOF) putchar(c);
@@ -40,7 +38,6 @@ void readFile(FILE* dataCsv){
     if(ferror(dataCsv)){
         puts("ERRO DE LEITURA");
     }
-
     // caso n haja erro, significa que a leitura foi concluída
 }
 
@@ -130,13 +127,11 @@ CatVector* leCSV_Cat(const char* file, int indexCol){
         } 
 
     }
-     
     closeFile(f);
     return cats;
-
 }
 
-
+//A IMPLEMENTAR: FUNÇÃO PARA LER O CSV DA CATEGORIA
 
 
 
