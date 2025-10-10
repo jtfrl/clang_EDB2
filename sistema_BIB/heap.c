@@ -121,8 +121,18 @@ void imprimirTopN(HeapMax *heap, int n) {
     }
 
     liberarHeap(temp);
+}
 
-    //PENDENTE: colocar função para mostrar só o 1o. mais vendido
+// Imprimir apenas o 1º livro mais vendido:
+void imprimirTop1(HeapMax *heap) {
+    if (heap->tamanho == 0) {
+        printf("Nenhum livro na heap!\n");
+        return;
+    }
+    Livro top = topoHeap(heap);
+    printf("\n📗 Livro mais vendido:\n");
+    printf("----------------------------------\n");
+    printf("%s (%d vendas)\n", top.titulo, top.vendas);
 }
 
 
