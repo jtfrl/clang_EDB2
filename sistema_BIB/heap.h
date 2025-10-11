@@ -47,7 +47,7 @@ void processaLivro(const char *arqCSV, int indexCol_Vendas);
 
 // Venda de livro (registro): 
 Livro* buscaISBN(HeapMax* vLivro, int ISBN);
-void updateHeap(HeapMax* vLivro); //A IMPLEMENTAR
+void updateHeap(HeapMax* heap, int isbn, int qtd); //A IMPLEMENTAR
 
 
 
