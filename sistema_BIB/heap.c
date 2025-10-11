@@ -159,3 +159,18 @@ void mostraPrimeiroMaisVendido(HeapMax* heap){
 
     printf("Livro mais vendido (1º Lugar): '%s'", primeiroMaisVendido.titulo);
 }
+
+Livro* buscaISBN(HeapMax* vLivro, int ISBN){
+    //Livro* buscaLivro;
+
+    for(int i=0;i<(vLivro->tamanho)-1;i++){
+        if(vLivro->livros[i].isbn==ISBN){
+            return vLivro->livros[i].isbn;
+        }
+        else{
+            perror("Livro não encontrado\n");
+            return NULL;
+        }
+    }
+}
+

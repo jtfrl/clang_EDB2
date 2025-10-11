@@ -34,7 +34,13 @@ int main(){
                     case 2:{}
                     case 3:{}
                     case 4:{}
-                    case 5:{}
+                    case 5:{
+                        int isbn_s=0;
+                        printf("\nInsira ISBN do livro para a venda\n");
+                        scanf("%d", isbn_s);
+
+                        //buscaISBN(vetor de livro aq, isbn_s);
+                    }
                     case 6:{}
                     default:{
                         rnn=false;
