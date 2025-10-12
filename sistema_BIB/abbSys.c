@@ -1,8 +1,6 @@
 //Carrega apenas a árvore e provê arquivos para heap.c
-
-#include "fileLoad.h"
 #include "abbSys.h"
-
+#include "fileLoad.h"
 
 No* inserir(No* r, char *cat) {
    // char* cat_ext=vetorComCat->cat;

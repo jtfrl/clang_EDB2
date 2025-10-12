@@ -1,6 +1,8 @@
 #include "heap.h"
 #include "abbSys.h"
-#include "fileLoad.h" //utilizar readFile aqui também
+#include "fileLoad.h" 
+
+Livro* readCatCSV_provideHeap(const char* busca);
 
 // Funções auxiliares:
 int pai(int i) { return (i - 1) / 2; }
@@ -124,7 +126,7 @@ void imprimirTopN(HeapMax *heap, int n) {
 }
 
 // nessa função, usamos a categoria em arqCSV
-HeapMax* processaLivro(const char *arqCSV, int indexCol_Vendas){
+HeapMax* processaLivro(const char* arqCSV, int indexCol_Vendas){
 
     Livro* liv=readCatCSV_provideHeap(arqCSV);
 
