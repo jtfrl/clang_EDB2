@@ -4,12 +4,13 @@
 #include "abbSys.h"
 
 
-No* inserir(No* r, CatVector* vetorComCat) {
-    char* cat_ext=vetorComCat->cat;
-    
-    if (r == NULL) return novoNo(cat_ext);
-    if (cat_ext < r->catExt) r->esq = inserir(r->esq, vetorComCat);
-    else if (cat_ext > r->catExt) r->dir = inserir(r->dir, vetorComCat);
+No* inserir(No* r, char *cat) {
+   // char* cat_ext=vetorComCat->cat;
+    if (r == NULL) return novoNo(cat);
+    //comparações na ordem alfabética
+    if (strcmp(cat, r->catExt)<0) r->esq = inserir(r->esq, cat); // inserção na esq.
+    else if (strcmp(cat, r->catExt)>0) r->dir = inserir(r->dir, cat);
+
     return r;
 }
 
@@ -105,8 +106,8 @@ char* processarCat(const char* arqCSV, int indexColCat){
          return NULL;
     }
 
-    liberaCat(tree);
-    libera(categoria);
+    liberaABB(tree);
+    liberaCat(categoria);
 
 }
 

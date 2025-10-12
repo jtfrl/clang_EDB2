@@ -17,7 +17,7 @@ typedef struct{
 } LivroVet; 
 
 // Inserção e criação de nós:
-No* inserir(No* r, CatVector* vetorComCat);
+No* inserir(No* r, char* cat);
 No* novoNo(char* catExt);
 
 // Funções requisitadas:
