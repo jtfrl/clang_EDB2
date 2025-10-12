@@ -37,18 +37,17 @@ Livro extrairMax(HeapMax *heap);
 void heapify(HeapMax *heap, int i);
 void reconstruirHeap(HeapMax *heap);
 void imprimirTopN(HeapMax *heap, int n);
+void mostraPrimeiroMaisVendido(HeapMax* heap);
 
 // Acesso ao topo (sem remover):
 Livro topoHeap(HeapMax *heap);
 
 // Processa os dados em .csv referentes a uma dada categoria
 // onde se encontram os livros de interesse: 
-void processaLivro(const char *arqCSV, int indexCol_Vendas);
+HeapMax* processaLivro(const char *arqCSV, int indexCol_Vendas);
 
 // Venda de livro (registro): 
 Livro* buscaISBN(HeapMax* vLivro, int ISBN);
-void updateHeap(HeapMax* heap, int isbn, int qtd); //A IMPLEMENTAR
-
-
+void updateHeap(HeapMax* heap, int isbn, int qtd); 
 
 #endif
