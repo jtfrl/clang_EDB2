@@ -128,23 +128,28 @@ HeapMax* processaLivro(const char *arqCSV, int indexCol_Vendas){
 
     Livro* liv=readCatCSV_provideHeap(arqCSV);
 
-    if(!liv || liv->vendas<0){
+    if(liv==NULL){
         printf("Informações sobre vendas dos livros não estão disponíveis.\n");
         return NULL;
     }
 
-    int v=contaEstoque(arqCSV);
-    printf("Carregados %d livros\n", v);
+    int totalLivros=0;
+    while(liv[totalLivros].isbn!=-1) totalLivros++;
 
-    HeapMax* livroHeap=criarHeap(v);
-    //LivroVet livrosArm_Heap=liv;
-    inserirHeap(livroHeap, liv);
+    HeapMax* livroHeap=criarHeap(totalLivros);
 
-    return livroHeap;
+    if(!livroHeap){ 
+        free(liv);
+        return NULL;
+    }
 
-    liberarHeap(livroHeap);
-    //libera(liv); -- IMPL f. para liberar memoria de livro
-    
+    for(int i=0; i<totalLivros; i++){
+        inserirHeap(livroHeap, &liv[i]);
+    }
+
+    free(liv);
+
+    return livroHeap;    
 }
 
 void mostraPrimeiroMaisVendido(HeapMax* heap){

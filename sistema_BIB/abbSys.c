@@ -106,31 +106,24 @@ char* processarCat(const char* arqCSV, int indexColCat){
          return NULL;
     }
 
-    liberaABB(tree);
+    liberarABB(tree);
     liberaCat(categoria);
 
 }
 
 // contagem de livros no estoque 
-int contaEstoque(const char* busca){
-    LivroVet* liv=readCatCSV_provideHeap(busca);
+int contaEstoque(HeapMax* h, const char* cat){
+    //Livro* liv=readCatCSV_provideHeap(busca);
 
-    if(!liv || liv->count==0){
-        printf("Não foram adicionados livros para a contagem\n");
-        if(liv) liberaLvet(liv);
+    if(!h || h->tamanho==0){
+        perror("Não foi possível extrair o estoque a partir dos dados da categoria.\n");
         return 0;
     }
+    
     int cEstoque=0;
-    int index=0;
-    while(liv->count!=0){
-        cEstoque+=liv->livros[index].estoque;
-        liv->count--;
-        index++;
-    }
+    for(int l=0; l<h->tamanho;l++) cEstoque+=h->livros[l].estoque;
 
-    printf("Categoria '%s': %d' é o estoque total", busca, cEstoque);
-
-    liberaLvet(liv);
+    printf("Categoria '%s': %d' é o estoque total", cat, cEstoque);
 
     return cEstoque;
 }
@@ -142,7 +135,6 @@ void liberaLvet(LivroVet* arr){
     }
 
 }
-
 
 // arquivo em .csv que vai ser utilizado na heap
 // aqui os dados do livro da categoria serão lidos
@@ -191,9 +183,9 @@ Livro* readCatCSV_provideHeap(const char* busca){
         free(livros_cat);
         return NULL;
     }
+    //contaEstoque(busca);
 
-    contaEstoque(busca);
+    livros_cat[index_livrosCat].isbn=-1; //marcador para indicar fim de lista 
 
     return livros_cat;
-
 }
