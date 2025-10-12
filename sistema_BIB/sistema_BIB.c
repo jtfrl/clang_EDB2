@@ -19,8 +19,8 @@ int main(){
 
         while(rnn){
             printf("\n\n Selecione uma opção do menu a seguir: \n");
-            printf("[1] Listar categorias e selecionar;\n[2] Mostrar o livro mais vendido da categoria;\n",
-              "[3] Mostrar os mais vendidos\n[4] Registrar venda \n[5] Sair");
+            printf("[1] Listar categorias e selecionar;\n[2] Mostrar o livro mais vendido da categoria;\n");
+            printf("[3] Mostrar os mais vendidos;\n[4] Registrar venda; \n[5] Sair");
 
             fgets(op, sizeof(op), stdin);
             _op=atoi(op);

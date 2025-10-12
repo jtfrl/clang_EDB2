@@ -30,7 +30,7 @@ void liberarABB(No* raiz);
 char* processarCat(const char* arqCSV, int indexColCat);
 
 // Contagem de estoque de livros
-int contaEstoque(char* busca);
+int contaEstoque(const char* busca);
 void liberaLvet(LivroVet* arr);
 
 // Processamento para a base de dados de livros 

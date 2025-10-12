@@ -101,19 +101,17 @@ char* processarCat(const char* arqCSV, int indexColCat){
         return resultado->catExt;
     } 
     else{
-         printf("Não encontrada: ", busca);
+         printf("Não encontrada: %s", busca);
          return NULL;
     }
 
-    libera(tree);
+    liberaCat(tree);
     libera(categoria);
-
-
 
 }
 
 // contagem de livros no estoque 
-int contaEstoque(char* busca){
+int contaEstoque(const char* busca){
     LivroVet* liv=readCatCSV_provideHeap(busca);
 
     if(!liv || liv->count==0){
