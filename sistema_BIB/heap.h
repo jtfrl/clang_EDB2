@@ -25,6 +25,9 @@ typedef struct {
     int capacidade;
 } HeapMax;
 
+//Troca:
+void trocar(Livro *a, Livro *b);
+
 // Criação e liberação:
 HeapMax* criarHeap(int capacidade);
 void liberarHeap(HeapMax *heap);

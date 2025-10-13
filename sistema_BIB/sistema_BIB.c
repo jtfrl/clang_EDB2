@@ -3,10 +3,10 @@
 #include "fileLoad.h"
 
 int main(){
-    printf("######### BIB - SISTEMA DE GESTÃO DE ESTOQUE & VENDAS DE LIVROS #########");
+    printf("\n\n######### BIB - SISTEMA DE GESTÃO DE ESTOQUE & VENDAS DE LIVROS #########\n\n");
      // Carregamento do arquivo .csv é automático, já que 
     // ele é o arquivo principal do programa
-    FILE* csv_file=openFile("categorias.csv");
+    FILE* csv_file=openFile("arqs_csv/categorias.csv");
     readFile(csv_file); //executa a leitura
     bool rnn=true; //controla o laço do menu
     char op[10];

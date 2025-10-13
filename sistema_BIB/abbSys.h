@@ -23,7 +23,7 @@ No* novoNo(char* catExt);
 // Funções requisitadas:
 No* buildABB(CatVector* vCats);
 void emOrdem(No* raiz);
-No* buscaCat(No* raiz, const char* cat){
+No* buscaCat(No* raiz, const char* cat);
 
 // Processamento e liberação:
 void liberarABB(No* raiz);
