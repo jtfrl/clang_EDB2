@@ -1,0 +1,11 @@
+isbn,titulo,autor,ano,preco,estoque,vendas
+259,Discrete Math and its Applications,Kenneth Rosen ,2019,"145,42",74,31
+125,Discrete Math and its Applications,Susana Epp,2020,"198,99",80,29
+282,Handbook of Mathmatical Induction,David Gunderson,2011,"101,5",25,11
+175,Calculus: Early Transcendentals,George B. Thomas,2013,"190,21",83,165
+579,Álgebra Linear e Aplicações,David C. Lay,2014,"121,35",35,50
+312,Algoritmos e Estruturas de Dados,Robert Sedgewick,2018,"175,8",60,25
+451,Introdução à Ciência da Computação,John V. Guttag,2021,150,90,40
+623,Fundamentos de Banco de Dados,Ramez Elmasri,2017,"130,5",45,15
+789,Redes de Computadores,Andrew S. Tanenbaum,2015,"180,25",70,30
+901,Inteligência Artificial: Uma Abordagem Moderna,Stuart Russell,2022,"210,99",55,20
