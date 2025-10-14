@@ -17,8 +17,6 @@ typedef struct{
     int cap; // capacidade
 }CatVector;
 
-
-// FUNCTION DECLARATIONS ONLY
 bool checkOpenFile(FILE* arqCsv);
 FILE* openFile(const char *fileAdd);
 void readFile(FILE* dataCsv);

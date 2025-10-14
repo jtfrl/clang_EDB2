@@ -14,15 +14,16 @@ int main(){
 
     if(checkOpenFile(csv_file)){ //controle por precaução
         // leitura e alimentação de CatVector com as categorias do .csv
-        CatVector* catCSVfile=leCSV_Cat("categorias.csv", 1);
+        CatVector* catCSVfile=leCSV_Cat("arqs_csv/categorias.csv", 1);
         HeapMax* heapCategoria=NULL;
 
         while(rnn){
             printf("\n\n Selecione uma opção do menu a seguir: \n");
             printf("[1] Listar categorias e selecionar;\n[2] Mostrar o livro mais vendido da categoria;\n");
-            printf("[3] Mostrar os mais vendidos;\n[4] Registrar venda; \n[5] Sair");
+            printf("[3] Mostrar os mais vendidos;\n[4] Registrar venda; \n[5] Sair\n\n");
 
             fgets(op, sizeof(op), stdin);
+
             _op=atoi(op);
 
             bool uOpt=false;
@@ -37,7 +38,7 @@ int main(){
                     case 1:{
                         //if(catSelect) free(catSelect); // -- liberação (memória dinâmica em processaCat)
 
-                        catSelect=processarCat("categorias.csv", 1);
+                        catSelect=processarCat("arqs_csv/categorias.csv", 1);
                         if(catSelect!=NULL){
                             heapCategoria=processaLivro(catSelect, 6);
                         }else{
@@ -46,10 +47,19 @@ int main(){
                         break;
                     }
                     case 2:{
+                        if(!heapCategoria){
+                            printf("Não foram carregadas categorias\n.");
+                            break;
+                        }
                         mostraPrimeiroMaisVendido(heapCategoria);
                         break;
                     }
                     case 3:{ 
+                        if(!heapCategoria){
+                            printf("Não foram carregadas categorias\n.");
+                            break; 
+                        }
+
                         int num=0;
                         printf("Indique o número de livros: \n");
                         scanf("%d", &num);
@@ -59,6 +69,10 @@ int main(){
                         break;
                     }
                     case 4:{
+                        if(!heapCategoria){
+                            printf("Não foram carregadas categorias\n.");
+                            break;
+                        }
                         char val[10];
                         int _val=0; // Código do ISBN informado
                         printf("\nInsira ISBN do livro para a venda\n");

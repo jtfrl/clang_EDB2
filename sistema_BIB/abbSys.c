@@ -52,13 +52,17 @@ No* buildABB(CatVector* vCats){
 void emOrdem(No* raiz){
     if (raiz==NULL) return;
     emOrdem(raiz->esq);
-    printf("%s ", raiz->catExt);
+    printf("%s \n\n", raiz->catExt);
     emOrdem(raiz->dir);
 }
 
 No* buscaCat(No* raiz, const char* cat){
-    if(raiz==NULL || raiz->catExt == cat) return raiz;
-    return(cat < raiz->catExt) ? buscaCat(raiz->esq, cat) : buscaCat(raiz->dir, cat);
+    if(raiz==NULL) return NULL;
+    int cmp=strcmp(cat, raiz->catExt);
+    if(cmp==0) return raiz; //encontrou
+    else if(cmp<0) return buscaCat(raiz->esq, cat);
+    else return buscaCat(raiz->dir, cat); // busca continua, em recursão
+    //return(cat < raiz->catExt) ? buscaCat(raiz->esq, cat) : buscaCat(raiz->dir, cat);
 }
 
 void liberarABB(No* raiz){
@@ -140,8 +144,10 @@ void liberaLvet(LivroVet* arr){
 Livro* readCatCSV_provideHeap(const char* busca){
     char* fileFormat=".csv";
     char file_provHeap[256]; //reserva de memória para o buffer
-    strcpy(file_provHeap, busca);
-    strcat(file_provHeap, fileFormat);
+    //strcpy(file_provHeap, busca);
+    //strcat(file_provHeap, fileFormat);
+
+    sprintf(file_provHeap, "arqs_csv/%s.csv", busca); // monta o nome do arquivo para fazer a busca
     FILE* abrir=fopen(file_provHeap, "r");
 
     if(!checkOpenFile(abrir)) return NULL;
