@@ -3,7 +3,7 @@
 #include "fileLoad.h"
 
 int main(){
-    printf("\n\n######### BIB - SISTEMA DE GESTÃO DE ESTOQUE & VENDAS DE LIVROS #########\n\n");
+    printf("\n\n######### BIB - SISTEMA DE GESTÃO & VENDAS DE LIVROS #########\n\n");
      // Carregamento do arquivo .csv é automático, já que 
     // ele é o arquivo principal do programa
     FILE* csv_file=openFile("arqs_csv/categorias.csv");
@@ -84,13 +84,13 @@ int main(){
                         if(livrovendido){
                             char qtd[10];
                             int _qtd=0;
-                            printf("Insira a quantidade de livros desejada\n");
+                            printf("\n\nInsira a quantidade de livros desejada\n");
                             fgets(qtd, sizeof(qtd), stdin);
 
                             _qtd=atoi(qtd);
                             updateHeap(heapCategoria, _val, _qtd);
 
-                            printf("Livro vendido! | TÍTULO: %s |\t AUTOR: %s ", 
+                            printf("\n\nLivro vendido! \n\n| TÍTULO: %s |\t AUTOR: %s ", 
                                 livrovendido->titulo, livrovendido->autor);
                         }
                         break;
