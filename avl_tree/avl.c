@@ -1,23 +1,20 @@
 #include "avl.h"
 
-int obter_altura(No* no)
-{
+int obter_altura(No* no){
   if(no == NULL)
     return -1;
   else
     return no->altura;
 }
 
-int calcular_fator_de_balanceamento(No* no)
-{
+int balanco(No* no){
   if(no == NULL)
     return 0;
   else
     return obter_altura(no->esquerdo) - obter_altura(no->direito);
 }
 
-No* criar_no(int dado)
-{
+No* criar_no(int dado){
   No* no = (No*)malloc(sizeof(No));
   no->dado = dado;
   no->esquerdo = NULL;
@@ -27,8 +24,7 @@ No* criar_no(int dado)
   return no;
 }
 
-No* rotacao_direita(No* y)
-{
+No* rotacao_direita(No* y){
   No* x = y->esquerdo;
   No* z = x->direito;
 
@@ -48,8 +44,7 @@ No* rotacao_direita(No* y)
   return x;
 }
 
-No* rotacao_esquerda(No* x)
-{
+No* rotacao_esquerda(No* x){
   No* y = x->direito;
   No* z = y->esquerdo;
 
@@ -69,8 +64,7 @@ No* rotacao_esquerda(No* x)
   return y;
 }
 
-No* inserir_no(No* no, int dado)
-{
+No* inserir_no(No* no, int dado){
   if(no == NULL)
     return criar_no(dado);
 
@@ -111,8 +105,7 @@ No* inserir_no(No* no, int dado)
   return no;
 }
 
-No* menor_valorNo(No* no)
-{
+No* menor_valorNo(No* no){
   No* atual = no;
   
   while(atual->esquerdo != NULL)
@@ -121,8 +114,7 @@ No* menor_valorNo(No* no)
   return atual;
 }
 
-No* remover_no(No* raiz, int dado)
-{
+No* remover_no(No* raiz, int dado){
   if(raiz == NULL)
     return raiz;
 
@@ -193,8 +185,7 @@ No* remover_no(No* raiz, int dado)
   return raiz;
 }
 
-void imprimir_em_ordem(No* raiz)
-{
+void imprimir_em_ordem(No* raiz){
   if(raiz != NULL){
     imprimir_em_ordem(raiz->esquerdo);
     printf("%d ", raiz->dado);
