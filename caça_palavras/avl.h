@@ -37,10 +37,9 @@ void liberar_no(No* no);
 void del_arv(No* raiz); // impede vazamentos de memória na AVL
 
 //###### FUNÇÕES DE PROCESSAMENTO DE ARQUIVO ######
+/*
 bool checkOpenFile(FILE* arqTxt);
 FILE* openFile(const char *file);
 void readFile(FILE* datatxt);
 void closeFile(FILE* f);
-
-// Checar impl de Ian sobre a AVL;
-// criar função aqui para comparar com a Trie
+*/
