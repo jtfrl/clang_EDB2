@@ -8,12 +8,13 @@
 // --------------------------------------
 
 // NOTE: O tabuleiro é alocado dinamicamente.
-// Lembrar de liberar depois no main() para evitar memory leak:
-char **lerTabuleiro(int *n)
+char **lerTabuleiro(int *n, char *nome_arq)
 {
     //FILE *arq = fopen("tabuleiro.txt", "r");
+    int l, c=0;
 
-    FILE *arq = fopen("caca-pal__mus.txt", "r");
+
+    FILE *arq = fopen(nome_arq, "r");
 
     if (!arq)
     {
@@ -22,7 +23,8 @@ char **lerTabuleiro(int *n)
     }
 
     // O arquivo contém algo como: "10 10":
-    fscanf(arq, "%d %d", n, n);
+    fscanf(arq, "%d %d", &l, &c);
+    if(l==c) printf("Lendo palavras...\n\n"); // se iguais, o programa continua:
 
     char **tab = malloc((*n) * sizeof(char *));
 
@@ -133,6 +135,8 @@ void buscarPalavras(char **tab, int n,
     for (int i = 0; i < n; i++)
         for (int j = 0; j < n; j++)
             buscarAPartirDe(i, j, tab, n, trie, raizAVL);
+
+
 }
 
 // --------------------------------------
@@ -144,4 +148,14 @@ void imprimirResultados(No *raizAVL)
 {
     printf("\nPalavras encontradas:\n");
     imprimir_em_ordem(raizAVL);
+}
+
+void dot_load(int s){
+    printf("Carregando\n\n\n");
+    for(int i=0; i<s; i++){
+        printf(".");
+        fflush(stdout);
+        sleep(1);
+    }
+    printf("\n");
 }
