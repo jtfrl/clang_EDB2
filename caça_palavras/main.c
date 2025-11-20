@@ -1,8 +1,9 @@
 #include "avl.h"
 #include "trie.h"
+#include "jogo.h"
 
 int main(){
-    print("#..*#..*#..*#..* CAÇA PALAVRAS *..#*..#*..#*..#\n\n");
+    printf("#..*#..*#..*#..* CAÇA PALAVRAS *..#*..#*..#*..#\n\n");
 
     //WHILE impl -- laco para controlar e informar o usuário para comecar o jogo
     TrieNode *trie = criarNoTrie();
@@ -21,13 +22,14 @@ int main(){
     buscarPalavras(tab, n, trie, &raizAVL);
 
     printf("Palavras encontradas:\n");
-    imprimir_em_ordem(raizAVL);
+    imprimirResultados(raizAVL);
 
-   // liberarTrie(trie); !! IMPL
     del_arv(raizAVL);
     for (int i = 0; i < n; i++)
         free(tab[i]);
     free(tab);
 
+
+   liberarTrie(trie);
     return 0;
 }
