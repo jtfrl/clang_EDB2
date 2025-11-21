@@ -13,17 +13,18 @@ int main(){
     // variáveis de AVL, trie, e de arquivos
     //TrieNode *trie = NULL;
     char **tab = NULL;
-    int n = 0;  // dimensões l x l do quadro de palavras do tabuleiro
+    int n = 10;  // dimensões l x l do quadro de palavras do tabuleiro
     No *raizAVL = NULL;
     char t_arq[100] = ""; // tabuleiro
-    char w_arq[100] = ""; // palavras
+    //char w_arq[100] = ""; 
 
 
     // controle de arquivos: tem como objetivo ver se todos os arquivos carrgaram
     bool tab_carr=false;
     bool p_carr=false;
 
-
+    TrieNode *trie = criarNoTrie();
+    carregarPalavras(trie);
 
     while(rnn){
           printf("\n\n Selecione uma opção do menu a seguir: \n");
@@ -48,11 +49,10 @@ int main(){
                 t=true;
             }
                 */
-            TrieNode *trie = criarNoTrie();
-            //carregarPalavras(trie);
+           
 
             if(uOpt){
-            carregarPalavras(trie);
+            //carregarPalavras(trie);
              
                 switch(_op){
 
@@ -61,32 +61,46 @@ int main(){
                         fgets(t_arq, sizeof(t_arq), stdin);
                         t_arq[strcspn(t_arq, "\n")]=0;
 
-                        dot_load(3);
-
-                        printf("Indique o número da dimensão do tabuleiro: ");
-                        char dim[10];
-                        fgets(dim, sizeof(dim), stdin);
-                        n=atoi(dim);
+                        dot_load(3, 1);
                                     
-                        dot_load(3);
-                        tab = lerTabuleiro(&n, t_arq);
+                        if(tab) { // controle para o caso de haver mais um tabuleiro já carregado
+                            for (int i = 0; i < n; i++) free(tab[i]);
+                            free(tab);
+                            tab=NULL;
+                        }
 
-                        if(tab) tab_carr=true;
+                        tab = lerTabuleiro(&n, t_arq); 
 
+                        if(tab) {
+                            tab_carr=true;
+                            printf("Tabuleiro carregado\n");
+                        }
                         break;
                     }
 
                     case 2:{
-                        if(!tab_carr){
+                        if(!tab_carr || !tab){
                             perror("Caregamento do tabuleiro falhou. Tente novamente com a op. 1\n");
                             break;
                         }
+                        dot_load(2, 2);
+                       
+                        printf("_____________\n\n");
 
-                        dot_load(3);
+                        for (int i=0; i<n;i++){
+                            for(int j=0;j<n;j++){
+                                printf("%c ", tab[i][j]);
+                            }
+                              printf("\n");
+                        }
+                        printf("\n\n_____________");
+                       
+
+                        dot_load(3, 2);
                          // Buscar palavras no tabuleiro e armazenar em AVL:
-                        raizAVL = NULL;
                         buscarPalavras(tab, n, trie, &raizAVL);
 
+                        if(raizAVL==NULL) perror("Falha no armazenamento das palavras\n");
                         imprimirResultados(raizAVL);
 
                         p_carr=true;
@@ -111,14 +125,10 @@ int main(){
                     }
                       
                 }
-
-               
             }
+    }
     liberarTrie(trie);
 
-    }
-
-   
     if(raizAVL){     
         del_arv(raizAVL);
         raizAVL=NULL;
@@ -128,7 +138,6 @@ int main(){
     free(tab);
     tab=NULL;
     }
-
 
     return 0;
 }

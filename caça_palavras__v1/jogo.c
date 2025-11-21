@@ -150,12 +150,30 @@ void imprimirResultados(No *raizAVL)
     imprimir_em_ordem(raizAVL);
 }
 
-void dot_load(int s){
+void dot_load(int s, int op){
     printf("Carregando\n\n\n");
-    for(int i=0; i<s; i++){
-        printf(".");
-        fflush(stdout);
-        sleep(1);
+
+    switch(op){
+        case 1:{
+            for(int i=0; i<s; i++){
+                printf(".");
+                fflush(stdout);
+                sleep(1);
+            }
+            printf("\n");
+            break;
+        }
+        case 2:{
+            for(int i=0; i<s; i++){
+                printf("#.#.#.");
+                fflush(stdout);
+                sleep(1);
+            }
+            printf("\n");
+            break;
+        }
+        default:{
+            break;
+        }
     }
-    printf("\n");
 }

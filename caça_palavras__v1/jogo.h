@@ -24,5 +24,5 @@ void buscarPalavras(char **tab, int n,TrieNode *trie, No **raizAVL);
 void imprimirResultados(No *raizAVL);
 
 // mostra os pontos ""...""
-void dot_load(int s);
+void dot_load(int s, int op);
 #endif //JOGO_h
