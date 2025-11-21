@@ -13,10 +13,10 @@ int main(){
     // variáveis de AVL, trie, e de arquivos
     //TrieNode *trie = NULL;
     char **tab = NULL;
-    int n = 10;  // dimensões l x l do quadro de palavras do tabuleiro
+    int n =0;  // dimensões l x l do quadro de palavras do tabuleiro
     No *raizAVL = NULL;
     char t_arq[100] = ""; // tabuleiro
-    //char w_arq[100] = ""; 
+    char w_arq[100] = ""; 
 
 
     // controle de arquivos: tem como objetivo ver se todos os arquivos carrgaram
@@ -24,7 +24,6 @@ int main(){
     bool p_carr=false;
 
     TrieNode *trie = criarNoTrie();
-    carregarPalavras(trie);
 
     while(rnn){
           printf("\n\n Selecione uma opção do menu a seguir: \n");
@@ -62,7 +61,10 @@ int main(){
                         t_arq[strcspn(t_arq, "\n")]=0;
 
                         dot_load(3, 1);
-                                    
+
+                        printf("\nIndique o valor das dimensões do tabuleiro: ");      
+                        scanf("%d", &n);             
+
                         if(tab) { // controle para o caso de haver mais um tabuleiro já carregado
                             for (int i = 0; i < n; i++) free(tab[i]);
                             free(tab);
@@ -84,6 +86,12 @@ int main(){
                             break;
                         }
                         dot_load(2, 2);
+
+                        printf("Indique o arquivo das palavras: ");                   
+                        fgets(w_arq, sizeof(w_arq), stdin);
+                        w_arq[strcspn(w_arq, "\n")]=0;
+
+                        carregarPalavras(trie, w_arq);
                        
                         printf("_____________\n\n");
 
@@ -94,6 +102,13 @@ int main(){
                               printf("\n");
                         }
                         printf("\n\n_____________");
+
+                        if(raizAVL!=NULL){
+                            del_arv(raizAVL);
+                            raizAVL=NULL; 
+                            // evitamos que haja problemas para caso 
+                            // o usuário insira novos arquivos
+                        }
                        
 
                         dot_load(3, 2);

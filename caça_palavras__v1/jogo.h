@@ -18,7 +18,7 @@
 #include "avl.h"
 
 char **lerTabuleiro(int *n, char* nome_arq);
-void carregarPalavras(TrieNode *raiz);
+void carregarPalavras(TrieNode *raiz, char* nome_arq);
 void buscarAPartirDe(int x, int y, char **tab, int n, TrieNode *trie, No **raizAVL);
 void buscarPalavras(char **tab, int n,TrieNode *trie, No **raizAVL);
 void imprimirResultados(No *raizAVL);

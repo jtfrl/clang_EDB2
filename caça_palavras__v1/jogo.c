@@ -46,9 +46,11 @@ char **lerTabuleiro(int *n, char *nome_arq)
 // --------------------------------------
 
 // OBSERVAÇÃO: Cada linha do arquivo representa uma palavra permitida:
-void carregarPalavras(TrieNode *raiz)
+void carregarPalavras(TrieNode *raiz, char* nome_arq)
 {
-    FILE *arq = fopen("p__mus.txt", "r");
+    FILE *arq = fopen(nome_arq, "r");
+    //    FILE *arq = fopen("p__mus.txt", "r");
+
     if (!arq)
     {
         printf("Erro ao abrir palavras.txt\n");
