@@ -129,7 +129,7 @@ int main(){
                         for (int i=0; i<3; i++){
                             printf(".");
                             fflush(stdout);
-                            sleep(1);
+                            SLEEP(1);
                         }
                         printf("\n\n");
                         break;

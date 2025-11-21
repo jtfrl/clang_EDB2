@@ -159,8 +159,8 @@ void dot_load(int s, int op){
         case 1:{
             for(int i=0; i<s; i++){
                 printf(".");
-                fflush(stdout);
-                sleep(1);
+                fflush(stdout); // limpa input no buffer
+                SLEEP(1); // pausa por 1 segundo
             }
             printf("\n");
             break;
@@ -169,7 +169,7 @@ void dot_load(int s, int op){
             for(int i=0; i<s; i++){
                 printf("#.#.#.");
                 fflush(stdout);
-                sleep(1);
+                SLEEP(1);
             }
             printf("\n");
             break;
